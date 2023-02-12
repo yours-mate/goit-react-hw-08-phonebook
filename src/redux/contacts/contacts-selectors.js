@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 const getLoading = state => state.todos.loading;
+// /jopencia
 
 const getFilter = state => state.todos.filter;
 
@@ -20,9 +21,9 @@ const getVisibleTodos = createSelector(
   (todos, filter) => {
     const normalizedFilter = filter.toLowerCase();
     return todos.filter(({ description }) =>
-      description.toLowerCase().includes(normalizedFilter),
+      description.toLowerCase().includes(normalizedFilter)
     );
-  },
+  }
 );
 
 const todosSelectors = {
