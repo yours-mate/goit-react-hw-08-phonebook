@@ -1,49 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { HiPlus } from 'react-icons/hi';
-import TodoList from '../../components/TodoList';
-import TodoEditor from '../../components/TodoEditor';
-import Filter from '../../components/TodoFilter';
-import Stats from '../../components/Stats';
-import Modal from '../../components/Modal';
-import IconButton from '../../components/IconButton';
-import { todosOperations, todosSelectors } from '../../redux/contacts';
-
-const barStyles = {
-  display: 'flex',
-  alignItems: 'flex-end',
-  marginBottom: 20,
-};
+import { ContactForm } from 'components/ContactForm/ContactForm';
+import { Filter } from 'components/Filter/Filter';
+import { ContactsList } from 'components/ContactsList/ContactsList';
+import { fetchContacts } from 'redux/contacts/operations';
+import { getIsLoading } from 'redux/contacts/contacts-selectors';
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
-  const isLoadingTodos = useSelector(todosSelectors.getLoading);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => setIsModalOpen(state => !state);
+  const isLoadingContacts = useSelector(getIsLoading);
 
   useEffect(() => {
-    dispatch(todosOperations.fetchTodos());
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
-    <>
-      <div style={barStyles}>
-        <Filter />
-        <Stats />
-        <IconButton onClick={toggleModal} aria-label="Добавить todo">
-          <HiPlus size={24} color="#fff" />
-        </IconButton>
-
-        {isLoadingTodos && <h1>Загружаем...</h1>}
-      </div>
-
-      <TodoList />
-
-      {isModalOpen && (
-        <Modal onClose={toggleModal}>
-          <TodoEditor onSave={toggleModal} />
-        </Modal>
-      )}
-    </>
+    <div>
+      <ContactForm />
+      <Filter />
+      {isLoadingContacts && <h1>Loading...</h1>}
+      <ContactsList />
+    </div>
   );
 }

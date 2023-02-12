@@ -1,4 +1,4 @@
-import { useAuth } from 'hooks';
+import { useAuth } from 'hooksAuth';
 import { Navigate } from 'react-router-dom';
 
 export default function PrivateRoute({

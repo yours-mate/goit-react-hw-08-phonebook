@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuth } from 'hooks';
+import { useAuth } from 'hooksAuth';
 
 const Link = styled(NavLink)`
   display: inline-block;
